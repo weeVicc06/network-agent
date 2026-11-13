@@ -1,0 +1,368 @@
+{
+  "expect": "plan",
+  "required": {
+    "schema_version": "0.2",
+    "environment": "packet_tracer",
+    "vlans": [
+      {
+        "id": 1
+      }
+    ],
+    "devices": [
+      {
+        "id": "PC0",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.0.1/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.0.254"
+      },
+      {
+        "id": "PC1",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.0.2/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.0.254"
+      },
+      {
+        "id": "PC2",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.1.1/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.1.254"
+      },
+      {
+        "id": "Server0",
+        "type": "server",
+        "model": "Server-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.1.2/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.1.254",
+        "services": {
+          "http": true
+        }
+      },
+      {
+        "id": "SW0",
+        "type": "switch",
+        "model": "2960",
+        "interfaces": [
+          {
+            "name": "FastEthernet0/1",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/2",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/3",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          }
+        ]
+      },
+      {
+        "id": "SW1",
+        "type": "switch",
+        "model": "2960",
+        "interfaces": [
+          {
+            "name": "FastEthernet0/1",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/2",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/3",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          }
+        ]
+      },
+      {
+        "id": "R0",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "192.168.0.254/24",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "10.0.0.1/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "static",
+          "static_routes": [
+            {
+              "prefix": "192.168.1.0/24",
+              "next_hop": "10.0.0.2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "R1",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "192.168.1.254/24",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "10.0.0.2/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "static",
+          "static_routes": [
+            {
+              "prefix": "192.168.0.0/24",
+              "next_hop": "10.0.0.1"
+            }
+          ]
+        }
+      }
+    ],
+    "links": [
+      {
+        "a": {
+          "device": "PC0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW0",
+          "interface": "FastEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "PC1",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW0",
+          "interface": "FastEthernet0/2"
+        }
+      },
+      {
+        "a": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/0"
+        },
+        "b": {
+          "device": "SW0",
+          "interface": "FastEthernet0/3"
+        }
+      },
+      {
+        "a": {
+          "device": "PC2",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW1",
+          "interface": "FastEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "Server0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW1",
+          "interface": "FastEthernet0/2"
+        }
+      },
+      {
+        "a": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/0"
+        },
+        "b": {
+          "device": "SW1",
+          "interface": "FastEthernet0/3"
+        }
+      },
+      {
+        "a": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/1"
+        },
+        "b": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/1"
+        }
+      }
+    ],
+    "acls": [
+      {
+        "name": "DEPT_POLICY",
+        "device": "R1",
+        "interface": "GigabitEthernet0/1",
+        "direction": "in",
+        "rules": [
+          {
+            "action": "deny",
+            "protocol": "tcp",
+            "source": "192.168.0.0/24",
+            "destination": "192.168.1.2/32",
+            "destination_port": 80
+          },
+          {
+            "action": "deny",
+            "protocol": "tcp",
+            "source": "192.168.0.1/32",
+            "destination": "192.168.1.2/32",
+            "destination_port": 20
+          },
+          {
+            "action": "deny",
+            "protocol": "tcp",
+            "source": "192.168.0.1/32",
+            "destination": "192.168.1.2/32",
+            "destination_port": 21
+          },
+          {
+            "action": "deny",
+            "protocol": "ip",
+            "source": "192.168.0.2/32",
+            "destination": "192.168.1.1/32"
+          },
+          {
+            "action": "deny",
+            "protocol": "icmp",
+            "source": "192.168.0.0/24",
+            "destination": "10.0.0.2/32"
+          },
+          {
+            "action": "permit",
+            "protocol": "ip",
+            "source": "any",
+            "destination": "any"
+          }
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "kind": "http",
+        "source": "PC0",
+        "destination": "Server0",
+        "reachable": false
+      },
+      {
+        "kind": "http",
+        "source": "PC1",
+        "destination": "Server0",
+        "reachable": false
+      },
+      {
+        "kind": "ping",
+        "source": "PC1",
+        "destination": "PC2",
+        "reachable": false
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC2",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "Server0",
+        "reachable": true
+      },
+      {
+        "kind": "route",
+        "source": "R0",
+        "prefix": "192.168.1.0/24",
+        "protocol": "static",
+        "next_hop": "10.0.0.2"
+      },
+      {
+        "kind": "route",
+        "source": "R1",
+        "prefix": "192.168.0.0/24",
+        "protocol": "static",
+        "next_hop": "10.0.0.1"
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "R1",
+        "target_ipv4": "10.0.0.2",
+        "reachable": false
+      }
+    ]
+  },
+  "counts": {
+    "devices": 8,
+    "links": 7,
+    "acls": 1,
+    "checks": 8
+  },
+  "notes": "保留7.1第14/20/21/32/33页地址和六条ACL策略，1941适配2911、编号100改命名ACL。FTP仅验证规则，未覆盖FTP服务。显式target_ipv4保证ICMP目标为10.0.0.2。",
+  "reference_provenance": "human_authored_reference_not_llm_output",
+  "exact_device_ids": [
+    "PC0",
+    "PC1",
+    "PC2",
+    "Server0",
+    "SW0",
+    "SW1",
+    "R0",
+    "R1"
+  ],
+  "semantic_equivalence_notes": [
+    "未指定的VLAN显示名称不作为需求约束。没有交换机的需求不约束未使用的顶层VLAN声明。",
+    "RIP的network允许本机直连子网或等价主类前缀，依赖独立编译/覆盖检查，不将前缀文本差异判为意图错误。",
+    "OSPF样例明确要求按直连网段生成指定反掩码，因此保留相应prefix与area约束。"
+  ]
+}

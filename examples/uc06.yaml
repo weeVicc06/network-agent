@@ -1,0 +1,34 @@
+schema_version: '0.1'
+name: 家庭工作室
+environment: packet_tracer
+subnet: 192.168.1.0/24
+routing: none
+devices:
+  - id: PC0
+    type: pc
+    model: PC-PT
+    interfaces:
+      - name: FastEthernet0
+        ipv4: 192.168.1.1/24
+  - id: PC1
+    type: pc
+    model: PC-PT
+    interfaces:
+      - name: FastEthernet0
+        ipv4: 192.168.1.2/24
+  - id: SW1
+    type: switch
+    model: '2960'
+    interfaces:
+      - name: FastEthernet0/1
+        ipv4: null
+      - name: FastEthernet0/2
+        ipv4: null
+links:
+  - a: {device: PC0, interface: FastEthernet0}
+    b: {device: SW1, interface: FastEthernet0/1}
+  - a: {device: PC1, interface: FastEthernet0}
+    b: {device: SW1, interface: FastEthernet0/2}
+checks:
+  - {source: PC0, destination: PC1, reachable: true}
+  - {source: PC1, destination: PC0, reachable: true}

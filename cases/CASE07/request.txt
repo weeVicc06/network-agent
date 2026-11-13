@@ -1,0 +1,1 @@
+在本机Packet Tracer完成实验6-6的最小HTTP网络。仅放置一台PC-PT（PC0）和一台Server-PT（Server0），两者FastEthernet0直接连接，不增加交换机和路由器。PC0地址192.168.0.1/24，Server0地址192.168.0.2/24，双方不配置默认网关和DNS。Server0的HTTP服务开启。不配置ACL或路由协议。提供双方ping计划，并要求在PC0浏览器访问http://192.168.0.2/，验收HTTP页面可达。HTTP服务开启和网页访问必须在Packet Tracer界面手动完成，计划不能宣称已经成功。

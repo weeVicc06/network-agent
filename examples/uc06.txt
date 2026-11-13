@@ -1,0 +1,1 @@
+仅在本地 Packet Tracer 中搭建家庭工作室网络：两台 PC（PC0 和 PC1）通过一台 2960 交换机 SW1 互联。PC0 连接 SW1 的 FastEthernet0/1，PC1 连接 FastEthernet0/2。两台 PC 的接口均为 FastEthernet0。使用 192.168.1.0/24，PC0 地址为 192.168.1.1/24，PC1 地址为 192.168.1.2/24。所有端口使用默认 VLAN 1，不需要路由器，不配置默认网关。验证两台 PC 双向 ping 通。

@@ -1,0 +1,6 @@
+{
+  "expect": "clarification",
+  "required": {},
+  "notes": "同一广播域两台主机强制使用同一IPv4地址且要求可靠互通，约束矛盾。正确行为是澄清/拒绝，不能静默改地址。",
+  "reference_provenance": "human_authored_expectation_not_llm_output"
+}

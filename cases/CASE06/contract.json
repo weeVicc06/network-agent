@@ -1,0 +1,226 @@
+{
+  "expect": "plan",
+  "required": {
+    "schema_version": "0.2",
+    "environment": "packet_tracer",
+    "devices": [
+      {
+        "id": "PC0",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.0.1/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.0.254"
+      },
+      {
+        "id": "PC1",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.1.1/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.1.254"
+      },
+      {
+        "id": "R0",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "192.168.0.254/24",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "10.0.0.1/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "ospf",
+          "process_id": 1,
+          "networks": [
+            {
+              "prefix": "192.168.0.0/24",
+              "area": 0
+            },
+            {
+              "prefix": "10.0.0.0/30",
+              "area": 0
+            }
+          ],
+          "static_routes": []
+        }
+      },
+      {
+        "id": "R1",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "10.0.0.2/30",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "172.16.0.1/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "ospf",
+          "process_id": 1,
+          "networks": [
+            {
+              "prefix": "10.0.0.0/30",
+              "area": 0
+            },
+            {
+              "prefix": "172.16.0.0/30",
+              "area": 100
+            }
+          ],
+          "static_routes": []
+        }
+      },
+      {
+        "id": "R2",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "192.168.1.254/24",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "172.16.0.2/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "ospf",
+          "process_id": 1,
+          "networks": [
+            {
+              "prefix": "192.168.1.0/24",
+              "area": 100
+            },
+            {
+              "prefix": "172.16.0.0/30",
+              "area": 100
+            }
+          ],
+          "static_routes": []
+        }
+      }
+    ],
+    "links": [
+      {
+        "a": {
+          "device": "PC0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/0"
+        }
+      },
+      {
+        "a": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/1"
+        },
+        "b": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/0"
+        }
+      },
+      {
+        "a": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/1"
+        },
+        "b": {
+          "device": "R2",
+          "interface": "GigabitEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "PC1",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "R2",
+          "interface": "GigabitEthernet0/0"
+        }
+      }
+    ],
+    "acls": [],
+    "checks": [
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC1",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC1",
+        "destination": "PC0",
+        "reachable": true
+      },
+      {
+        "kind": "route",
+        "source": "R0",
+        "prefix": "192.168.1.0/24",
+        "protocol": "ospf_inter_area",
+        "next_hop": "10.0.0.2"
+      },
+      {
+        "kind": "path",
+        "source": "PC0",
+        "destination": "PC1",
+        "expected_hops": [
+          "192.168.0.254",
+          "10.0.0.2",
+          "172.16.0.2",
+          "192.168.1.1"
+        ]
+      }
+    ]
+  },
+  "counts": {
+    "devices": 5,
+    "links": 4,
+    "acls": 0,
+    "checks": 4
+  },
+  "notes": "课内OSPF知识的多区域扩展变体，不是4.11原课件三角形拓扑。",
+  "reference_provenance": "human_authored_reference_not_llm_output",
+  "exact_device_ids": [
+    "PC0",
+    "PC1",
+    "R0",
+    "R1",
+    "R2"
+  ],
+  "semantic_equivalence_notes": [
+    "未指定的VLAN显示名称不作为需求约束。没有交换机的需求不约束未使用的顶层VLAN声明。",
+    "RIP的network允许本机直连子网或等价主类前缀，依赖独立编译/覆盖检查，不将前缀文本差异判为意图错误。",
+    "OSPF样例明确要求按直连网段生成指定反掩码，因此保留相应prefix与area约束。"
+  ]
+}

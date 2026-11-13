@@ -1,0 +1,44 @@
+schema_version: '0.2'
+name: 最小HTTP网络
+environment: packet_tracer
+vlans:
+- id: 1
+  name: default
+devices:
+- id: PC0
+  type: pc
+  model: PC-PT
+  interfaces:
+  - name: FastEthernet0
+    ipv4: 192.168.0.1/24
+    mode: routed
+- id: Server0
+  type: server
+  model: Server-PT
+  interfaces:
+  - name: FastEthernet0
+    ipv4: 192.168.0.2/24
+    mode: routed
+  services:
+    http: true
+links:
+- a:
+    device: PC0
+    interface: FastEthernet0
+  b:
+    device: Server0
+    interface: FastEthernet0
+acls: []
+checks:
+- kind: ping
+  source: PC0
+  destination: Server0
+  reachable: true
+- kind: ping
+  source: Server0
+  destination: PC0
+  reachable: true
+- kind: http
+  source: PC0
+  destination: Server0
+  reachable: true

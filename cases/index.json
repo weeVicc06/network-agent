@@ -1,0 +1,134 @@
+[
+  {
+    "id": "CASE01",
+    "title": "CIDR与双向静态路由",
+    "course": "4.5",
+    "request_file": "CASE01/request.txt",
+    "reference_file": "CASE01/expected.yaml",
+    "contract_file": "CASE01/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": true,
+    "adaptation": "课内概念精简变体。保留不同长度子网、网关和双向静态路由，未复刻原课件8PC/4交换机拓扑。"
+  },
+  {
+    "id": "CASE02",
+    "title": "实验4-5地址方案基线",
+    "course": "4.5",
+    "request_file": "CASE02/request.txt",
+    "reference_file": "CASE02/expected.yaml",
+    "contract_file": "CASE02/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "保留课件第16至30页的设备数量、接口、CIDR地址和静态下一跳。交换机/路由器ID规范为SW0..3/R0..1。不把未实测参考拓扑当作已通过基线。"
+  },
+  {
+    "id": "CASE03",
+    "title": "RIPv2保留VLSM前缀",
+    "course": "4.10",
+    "request_file": "CASE03/request.txt",
+    "reference_file": "CASE03/expected.yaml",
+    "contract_file": "CASE03/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "4.10编址与三角形邻接关系保留，原串口改为GigabitEthernet0/2。RIPv2/无自动汇总应保留/25、/26，预期需PT运行验证。"
+  },
+  {
+    "id": "CASE04",
+    "title": "RIPv1在VLSM下的预期失败",
+    "course": "4.10",
+    "request_file": "CASE04/request.txt",
+    "reference_file": "CASE04/expected.yaml",
+    "contract_file": "CASE04/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "保留4.10第31页对照目标：VLSM导致RIPv1不具备所需目的路由；预期网络测试失败，不能计为拓扑生成失败。原串口改千兆口。"
+  },
+  {
+    "id": "CASE05",
+    "title": "OSPF area0与反掩码",
+    "course": "4.11",
+    "request_file": "CASE05/request.txt",
+    "reference_file": "CASE05/expected.yaml",
+    "contract_file": "CASE05/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "4.11全千兆适配变体，在R0/R1 G0/2显式设置OSPF cost64以保留原串口高代价及间接最优路径。未安装串口模块，未覆盖课件等价负载均衡步骤。"
+  },
+  {
+    "id": "CASE06",
+    "title": "OSPF ABR与跨区路由",
+    "course": "4.11",
+    "request_file": "CASE06/request.txt",
+    "reference_file": "CASE06/expected.yaml",
+    "contract_file": "CASE06/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "课内OSPF知识的多区域扩展变体，不是4.11原课件三角形拓扑。"
+  },
+  {
+    "id": "CASE07",
+    "title": "实验6-6最小HTTP网络",
+    "course": "6.6",
+    "request_file": "CASE07/request.txt",
+    "reference_file": "CASE07/expected.yaml",
+    "contract_file": "CASE07/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": true,
+    "adaptation": "保留6.6第4至10页原PC直连服务器、PC=.1/24、Server=.2/24。Web文档编辑与HTTP模拟过程属于PT人工步骤。"
+  },
+  {
+    "id": "CASE08",
+    "title": "跨子网HTTP与默认网关",
+    "course": "6.6",
+    "request_file": "CASE08/request.txt",
+    "reference_file": "CASE08/expected.yaml",
+    "contract_file": "CASE08/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "6.6精简扩展变体，加入一个路由器和两个局域网以评估网关与HTTP引用一致性。"
+  },
+  {
+    "id": "CASE09",
+    "title": "ACL仅禁ICMP并保留HTTP",
+    "course": "7.1",
+    "request_file": "CASE09/request.txt",
+    "reference_file": "CASE09/expected.yaml",
+    "contract_file": "CASE09/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": true,
+    "adaptation": "7.1精简变体，强调ACL顺序、入方向和服务级可达性，非原课件完整四项策略。"
+  },
+  {
+    "id": "CASE10",
+    "title": "实验7-1扩展ACL策略矩阵",
+    "course": "7.1",
+    "request_file": "CASE10/request.txt",
+    "reference_file": "CASE10/expected.yaml",
+    "contract_file": "CASE10/contract.json",
+    "category": "benchmark",
+    "first_pass_candidate": false,
+    "adaptation": "保留7.1第14/20/21/32/33页地址和六条ACL策略，1941适配2911、编号100改命名ACL。FTP仅验证规则，未覆盖FTP服务。显式target_ipv4保证ICMP目标为10.0.0.2。"
+  },
+  {
+    "id": "CHALLENGE01",
+    "title": "矛盾的同网段重复地址",
+    "course": "4.5",
+    "request_file": "CHALLENGE01/request.txt",
+    "reference_file": "CHALLENGE01/expected.yaml",
+    "contract_file": "CHALLENGE01/contract.json",
+    "category": "challenge",
+    "first_pass_candidate": false,
+    "adaptation": "同一广播域两台主机强制使用同一IPv4地址且要求可靠互通，约束矛盾。正确行为是澄清/拒绝，不能静默改地址。"
+  },
+  {
+    "id": "CHALLENGE02",
+    "title": "OSPF邻接区域矛盾",
+    "course": "4.11",
+    "request_file": "CHALLENGE02/request.txt",
+    "reference_file": "CHALLENGE02/expected.yaml",
+    "contract_file": "CHALLENGE02/contract.json",
+    "category": "challenge",
+    "first_pass_candidate": false,
+    "adaptation": "同一OSPF链路两端固定不同area且要求直接建立邻接，约束矛盾。正确行为是澄清/拒绝，不应静默改area。"
+  }
+]

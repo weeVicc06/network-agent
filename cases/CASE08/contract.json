@@ -1,0 +1,119 @@
+{
+  "expect": "plan",
+  "required": {
+    "schema_version": "0.2",
+    "environment": "packet_tracer",
+    "devices": [
+      {
+        "id": "PC0",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.10.1/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.10.254"
+      },
+      {
+        "id": "Server0",
+        "type": "server",
+        "model": "Server-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.20.2/24",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "192.168.20.254",
+        "services": {
+          "http": true
+        }
+      },
+      {
+        "id": "R0",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "192.168.10.254/24",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "192.168.20.254/24",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "none"
+        }
+      }
+    ],
+    "links": [
+      {
+        "a": {
+          "device": "PC0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/0"
+        }
+      },
+      {
+        "a": {
+          "device": "Server0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/1"
+        }
+      }
+    ],
+    "acls": [],
+    "checks": [
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "Server0",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "Server0",
+        "destination": "PC0",
+        "reachable": true
+      },
+      {
+        "kind": "http",
+        "source": "PC0",
+        "destination": "Server0",
+        "reachable": true
+      }
+    ]
+  },
+  "counts": {
+    "devices": 3,
+    "links": 2,
+    "acls": 0,
+    "checks": 3
+  },
+  "notes": "6.6精简扩展变体，加入一个路由器和两个局域网以评估网关与HTTP引用一致性。",
+  "reference_provenance": "human_authored_reference_not_llm_output",
+  "exact_device_ids": [
+    "PC0",
+    "Server0",
+    "R0"
+  ],
+  "semantic_equivalence_notes": [
+    "未指定的VLAN显示名称不作为需求约束。没有交换机的需求不约束未使用的顶层VLAN声明。",
+    "RIP的network允许本机直连子网或等价主类前缀，依赖独立编译/覆盖检查，不将前缀文本差异判为意图错误。",
+    "OSPF样例明确要求按直连网段生成指定反掩码，因此保留相应prefix与area约束。"
+  ]
+}

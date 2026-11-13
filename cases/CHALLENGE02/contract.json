@@ -1,0 +1,6 @@
+{
+  "expect": "clarification",
+  "required": {},
+  "notes": "同一OSPF链路两端固定不同area且要求直接建立邻接，约束矛盾。正确行为是澄清/拒绝，不应静默改area。",
+  "reference_provenance": "human_authored_expectation_not_llm_output"
+}

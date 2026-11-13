@@ -1,0 +1,91 @@
+[
+  {
+    "course": "4.5",
+    "original_file": "/Volumes/weevicc/计网实验/4.5/4.5 实验4-5 IPv4地址的无分类编址方法.pptx",
+    "original_file_sha256": null,
+    "slides_used": [
+      2,
+      16,
+      17,
+      18,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      35,
+      38
+    ],
+    "inspection_method": "read_only_pptx_slide_xml_text_extraction",
+    "extracted_text_sha256": "8977e0c86740d62f840d284f2516c5258c5cd3ddf4134b3973f42debf3df09b3",
+    "note": "课件读取完成后外置卷未挂载，未伪造原始文件hash。"
+  },
+  {
+    "course": "4.10",
+    "original_file": "/Volumes/weevicc/计网实验/4.10/4.10 实验4-10 路由信息协议RIPv2与RIPv1的对比.pptx",
+    "original_file_sha256": null,
+    "slides_used": [
+      2,
+      16,
+      24,
+      31,
+      34,
+      40,
+      43
+    ],
+    "inspection_method": "read_only_pptx_slide_xml_text_extraction",
+    "extracted_text_sha256": "a0e1c37a0dd641cccfdf0bd281409db8ab214936d0ed8e7de84ca8c5c1c37db1",
+    "note": "课件读取完成后外置卷未挂载，未伪造原始文件hash。"
+  },
+  {
+    "course": "4.11",
+    "original_file": "/Volumes/weevicc/计网实验/4.11/4.11 实验4-11 验证开放最短路径优先OSPF协议.pptx",
+    "original_file_sha256": null,
+    "slides_used": [
+      16,
+      24,
+      27,
+      34,
+      35,
+      38,
+      40
+    ],
+    "inspection_method": "read_only_pptx_slide_xml_text_extraction",
+    "extracted_text_sha256": "70330728b6ae987f43e7555fb2fb2513e717eb87fae3984f1d7db4b67b813a64",
+    "note": "课件读取完成后外置卷未挂载，未伪造原始文件hash。"
+  },
+  {
+    "course": "6.6",
+    "original_file": "/Volumes/weevicc/计网实验/6.6/6.6 实验6-6 熟悉万维网文档的作用和超文本传输协议HTTP.pptx",
+    "original_file_sha256": null,
+    "slides_used": [
+      4,
+      7,
+      10,
+      15,
+      17,
+      20,
+      22
+    ],
+    "inspection_method": "read_only_pptx_slide_xml_text_extraction",
+    "extracted_text_sha256": "8df035d9ca1df0913c56b7f15814f4c1e1eaf4a49a3ce20a123a0bcda54ddcd0",
+    "note": "课件读取完成后外置卷未挂载，未伪造原始文件hash。"
+  },
+  {
+    "course": "7.1",
+    "original_file": "/Volumes/weevicc/计网实验/7.1/7.1 实验7-1 配置访问控制列表ACL.pptx",
+    "original_file_sha256": null,
+    "slides_used": [
+      14,
+      20,
+      21,
+      32,
+      33,
+      35
+    ],
+    "inspection_method": "read_only_pptx_slide_xml_text_extraction",
+    "extracted_text_sha256": "f2d45b63c3545557a1c972f37f8c344a1abe25d6cb1a070dda667f6c89a4c09f",
+    "note": "课件读取完成后外置卷未挂载，未伪造原始文件hash。"
+  }
+]

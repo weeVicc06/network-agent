@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "第一阶段 UC-06 拓扑 DSL；尚非全作业 DSL",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "name", "environment", "subnet", "routing", "devices", "links", "checks"],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 80},
+    "environment": {"const": "packet_tracer"},
+    "subnet": {"type": "string", "maxLength": 32},
+    "routing": {"const": "none"},
+    "devices": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "type", "model", "interfaces"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,19}$"},
+          "type": {"enum": ["pc", "switch"]},
+          "model": {"enum": ["PC-PT", "2960"]},
+          "interfaces": {
+            "type": "array", "minItems": 1, "maxItems": 2,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["name", "ipv4"],
+              "properties": {
+                "name": {"enum": ["FastEthernet0", "FastEthernet0/1", "FastEthernet0/2"]},
+                "ipv4": {"type": ["string", "null"], "maxLength": 32}
+              }
+            }
+          }
+        }
+      }
+    },
+    "links": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["a", "b"],
+        "properties": {"a": {"$ref": "#/$defs/endpoint"}, "b": {"$ref": "#/$defs/endpoint"}}
+      }
+    },
+    "checks": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["source", "destination", "reachable"],
+        "properties": {
+          "source": {"type": "string"},
+          "destination": {"type": "string"},
+          "reachable": {"const": true}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "endpoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["device", "interface"],
+      "properties": {"device": {"type": "string"}, "interface": {"type": "string"}}
+    }
+  }
+}

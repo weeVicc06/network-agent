@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/network-agent/topology-v2.schema.json",
+  "title": "Local Packet Tracer topology DSL 0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "name", "environment", "vlans", "devices", "links", "acls", "checks"],
+  "properties": {
+    "schema_version": {"const": "0.2"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 100},
+    "environment": {"const": "packet_tracer"},
+    "vlans": {"type": "array", "minItems": 1, "maxItems": 32, "items": {"$ref": "#/$defs/vlan"}},
+    "devices": {"type": "array", "minItems": 2, "maxItems": 32, "items": {"$ref": "#/$defs/device"}},
+    "links": {"type": "array", "minItems": 1, "maxItems": 64, "items": {"$ref": "#/$defs/link"}},
+    "acls": {"type": "array", "maxItems": 16, "items": {"$ref": "#/$defs/acl"}},
+    "checks": {"type": "array", "minItems": 1, "maxItems": 128, "items": {"$ref": "#/$defs/check"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,19}$"},
+    "prefix": {"type": "string", "minLength": 7, "maxLength": 18},
+    "ip": {"type": "string", "minLength": 7, "maxLength": 15},
+    "vlan": {"type": "object", "additionalProperties": false, "required": ["id", "name"], "properties": {"id": {"type": "integer", "minimum": 1, "maximum": 4094}, "name": {"$ref": "#/$defs/id"}}},
+    "interface": {
+      "type": "object", "additionalProperties": false, "required": ["name", "ipv4", "mode"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^(FastEthernet0(/[1-9][0-9]?)?|GigabitEthernet0/[0-9]+)$"},
+        "ipv4": {"anyOf": [{"$ref": "#/$defs/prefix"}, {"type": "null"}]},
+        "mode": {"enum": ["routed", "access", "trunk"]},
+        "vlan": {"type": "integer", "minimum": 1, "maximum": 4094},
+        "allowed_vlans": {"type": "array", "minItems": 1, "maxItems": 32, "uniqueItems": true, "items": {"type": "integer", "minimum": 1, "maximum": 4094}},
+        "ospf_cost": {"type": "integer", "minimum": 1, "maximum": 65535}
+      }
+    },
+    "routing": {
+      "type": "object", "additionalProperties": false, "required": ["protocol"],
+      "properties": {
+        "protocol": {"enum": ["none", "static", "rip", "ospf"]},
+        "version": {"type": "integer", "enum": [1, 2]},
+        "auto_summary": {"type": "boolean"},
+        "process_id": {"type": "integer", "minimum": 1, "maximum": 65535},
+        "networks": {"type": "array", "maxItems": 32, "items": {"type": "object", "additionalProperties": false, "required": ["prefix"], "properties": {"prefix": {"$ref": "#/$defs/prefix"}, "area": {"type": "integer", "minimum": 0, "maximum": 4294967295}}}},
+        "static_routes": {"type": "array", "maxItems": 32, "items": {"type": "object", "additionalProperties": false, "required": ["prefix", "next_hop"], "properties": {"prefix": {"$ref": "#/$defs/prefix"}, "next_hop": {"$ref": "#/$defs/ip"}, "distance": {"type": "integer", "minimum": 1, "maximum": 254}}}}
+      }
+    },
+    "device": {
+      "type": "object", "additionalProperties": false, "required": ["id", "type", "model", "interfaces"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "type": {"enum": ["pc", "server", "switch", "router"]},
+        "model": {"enum": ["PC-PT", "Server-PT", "2960", "2911"]},
+        "interfaces": {"type": "array", "minItems": 1, "maxItems": 26, "items": {"$ref": "#/$defs/interface"}},
+        "gateway": {"anyOf": [{"$ref": "#/$defs/ip"}, {"type": "null"}]},
+        "routing": {"$ref": "#/$defs/routing"},
+        "services": {"type": "object", "additionalProperties": false, "required": ["http"], "properties": {"http": {"type": "boolean"}}}
+      }
+    },
+    "endpoint": {"type": "object", "additionalProperties": false, "required": ["device", "interface"], "properties": {"device": {"$ref": "#/$defs/id"}, "interface": {"type": "string", "minLength": 1, "maxLength": 25}}},
+    "link": {"type": "object", "additionalProperties": false, "required": ["a", "b"], "properties": {"a": {"$ref": "#/$defs/endpoint"}, "b": {"$ref": "#/$defs/endpoint"}}},
+    "acl": {
+      "type": "object", "additionalProperties": false, "required": ["name", "device", "interface", "direction", "rules"],
+      "properties": {
+        "name": {"$ref": "#/$defs/id"}, "device": {"$ref": "#/$defs/id"}, "interface": {"type": "string", "maxLength": 25}, "direction": {"enum": ["in", "out"]},
+        "rules": {"type": "array", "minItems": 1, "maxItems": 64, "items": {"type": "object", "additionalProperties": false, "required": ["action", "protocol", "source", "destination"], "properties": {"action": {"enum": ["permit", "deny"]}, "protocol": {"enum": ["ip", "icmp", "tcp", "udp"]}, "source": {"type": "string", "maxLength": 18}, "destination": {"type": "string", "maxLength": 18}, "destination_port": {"type": "integer", "minimum": 1, "maximum": 65535}}}}
+      }
+    },
+    "check": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "source"],
+      "properties": {
+        "kind": {"enum": ["ping", "path", "route", "http"]}, "source": {"$ref": "#/$defs/id"}, "destination": {"$ref": "#/$defs/id"}, "reachable": {"type": "boolean"},
+        "expected_hops": {"type": "array", "maxItems": 32, "items": {"$ref": "#/$defs/ip"}}, "prefix": {"$ref": "#/$defs/prefix"}, "protocol": {"enum": ["connected", "static", "rip", "ospf", "ospf_inter_area"]}, "next_hop": {"$ref": "#/$defs/ip"}, "target_ipv4": {"$ref": "#/$defs/ip"}, "present": {"type": "boolean", "default": true}
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+schema_version: '0.2'
+name: 跨子网HTTP访问
+environment: packet_tracer
+vlans:
+- id: 1
+  name: default
+devices:
+- id: PC0
+  type: pc
+  model: PC-PT
+  interfaces:
+  - name: FastEthernet0
+    ipv4: 192.168.10.1/24
+    mode: routed
+  gateway: 192.168.10.254
+- id: Server0
+  type: server
+  model: Server-PT
+  interfaces:
+  - name: FastEthernet0
+    ipv4: 192.168.20.2/24
+    mode: routed
+  gateway: 192.168.20.254
+  services:
+    http: true
+- id: R0
+  type: router
+  model: '2911'
+  interfaces:
+  - name: GigabitEthernet0/0
+    ipv4: 192.168.10.254/24
+    mode: routed
+  - name: GigabitEthernet0/1
+    ipv4: 192.168.20.254/24
+    mode: routed
+  routing:
+    protocol: none
+links:
+- a:
+    device: PC0
+    interface: FastEthernet0
+  b:
+    device: R0
+    interface: GigabitEthernet0/0
+- a:
+    device: Server0
+    interface: FastEthernet0
+  b:
+    device: R0
+    interface: GigabitEthernet0/1
+acls: []
+checks:
+- kind: ping
+  source: PC0
+  destination: Server0
+  reachable: true
+- kind: ping
+  source: Server0
+  destination: PC0
+  reachable: true
+- kind: http
+  source: PC0
+  destination: Server0
+  reachable: true

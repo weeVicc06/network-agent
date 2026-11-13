@@ -1,0 +1,125 @@
+schema_version: '0.2'
+name: OSPF多区域互通
+environment: packet_tracer
+vlans:
+- id: 1
+  name: default
+devices:
+- id: PC0
+  type: pc
+  model: PC-PT
+  interfaces:
+  - name: FastEthernet0
+    ipv4: 192.168.0.1/24
+    mode: routed
+  gateway: 192.168.0.254
+- id: PC1
+  type: pc
+  model: PC-PT
+  interfaces:
+  - name: FastEthernet0
+    ipv4: 192.168.1.1/24
+    mode: routed
+  gateway: 192.168.1.254
+- id: R0
+  type: router
+  model: '2911'
+  interfaces:
+  - name: GigabitEthernet0/0
+    ipv4: 192.168.0.254/24
+    mode: routed
+  - name: GigabitEthernet0/1
+    ipv4: 10.0.0.1/30
+    mode: routed
+  routing:
+    protocol: ospf
+    process_id: 1
+    networks:
+    - prefix: 192.168.0.0/24
+      area: 0
+    - prefix: 10.0.0.0/30
+      area: 0
+- id: R1
+  type: router
+  model: '2911'
+  interfaces:
+  - name: GigabitEthernet0/0
+    ipv4: 10.0.0.2/30
+    mode: routed
+  - name: GigabitEthernet0/1
+    ipv4: 172.16.0.1/30
+    mode: routed
+  routing:
+    protocol: ospf
+    process_id: 1
+    networks:
+    - prefix: 10.0.0.0/30
+      area: 0
+    - prefix: 172.16.0.0/30
+      area: 100
+- id: R2
+  type: router
+  model: '2911'
+  interfaces:
+  - name: GigabitEthernet0/0
+    ipv4: 192.168.1.254/24
+    mode: routed
+  - name: GigabitEthernet0/1
+    ipv4: 172.16.0.2/30
+    mode: routed
+  routing:
+    protocol: ospf
+    process_id: 1
+    networks:
+    - prefix: 192.168.1.0/24
+      area: 100
+    - prefix: 172.16.0.0/30
+      area: 100
+links:
+- a:
+    device: PC0
+    interface: FastEthernet0
+  b:
+    device: R0
+    interface: GigabitEthernet0/0
+- a:
+    device: R0
+    interface: GigabitEthernet0/1
+  b:
+    device: R1
+    interface: GigabitEthernet0/0
+- a:
+    device: R1
+    interface: GigabitEthernet0/1
+  b:
+    device: R2
+    interface: GigabitEthernet0/1
+- a:
+    device: PC1
+    interface: FastEthernet0
+  b:
+    device: R2
+    interface: GigabitEthernet0/0
+acls: []
+checks:
+- kind: ping
+  source: PC0
+  destination: PC1
+  reachable: true
+- kind: ping
+  source: PC1
+  destination: PC0
+  reachable: true
+- kind: route
+  source: R0
+  prefix: 192.168.1.0/24
+  protocol: ospf_inter_area
+  next_hop: 10.0.0.2
+- kind: path
+  source: PC0
+  destination: PC1
+  expected_hops:
+  - 192.168.0.254
+  - 10.0.0.2
+  - 172.16.0.2
+  - 192.168.1.1

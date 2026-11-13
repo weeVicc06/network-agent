@@ -1,0 +1,538 @@
+{
+  "expect": "plan",
+  "required": {
+    "schema_version": "0.2",
+    "environment": "packet_tracer",
+    "vlans": [
+      {
+        "id": 1
+      }
+    ],
+    "devices": [
+      {
+        "id": "PC0",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.33/28",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.46"
+      },
+      {
+        "id": "PC1",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.34/28",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.46"
+      },
+      {
+        "id": "PC2",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.1/27",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.30"
+      },
+      {
+        "id": "PC3",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.2/27",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.30"
+      },
+      {
+        "id": "PC4",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.65/28",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.78"
+      },
+      {
+        "id": "PC5",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.66/28",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.78"
+      },
+      {
+        "id": "PC6",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.49/28",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.62"
+      },
+      {
+        "id": "PC7",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "218.75.230.50/28",
+            "mode": "routed"
+          }
+        ],
+        "gateway": "218.75.230.62"
+      },
+      {
+        "id": "SW0",
+        "type": "switch",
+        "model": "2960",
+        "interfaces": [
+          {
+            "name": "FastEthernet0/1",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/2",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/3",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          }
+        ]
+      },
+      {
+        "id": "SW1",
+        "type": "switch",
+        "model": "2960",
+        "interfaces": [
+          {
+            "name": "FastEthernet0/1",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/2",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/3",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          }
+        ]
+      },
+      {
+        "id": "SW2",
+        "type": "switch",
+        "model": "2960",
+        "interfaces": [
+          {
+            "name": "FastEthernet0/1",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/2",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/3",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          }
+        ]
+      },
+      {
+        "id": "SW3",
+        "type": "switch",
+        "model": "2960",
+        "interfaces": [
+          {
+            "name": "FastEthernet0/1",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/2",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          },
+          {
+            "name": "FastEthernet0/3",
+            "ipv4": null,
+            "mode": "access",
+            "vlan": 1
+          }
+        ]
+      },
+      {
+        "id": "R0",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "218.75.230.46/28",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "218.75.230.30/27",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/2",
+            "ipv4": "218.75.230.81/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "static",
+          "static_routes": [
+            {
+              "prefix": "218.75.230.48/28",
+              "next_hop": "218.75.230.82"
+            },
+            {
+              "prefix": "218.75.230.64/28",
+              "next_hop": "218.75.230.82"
+            }
+          ]
+        }
+      },
+      {
+        "id": "R1",
+        "type": "router",
+        "model": "2911",
+        "interfaces": [
+          {
+            "name": "GigabitEthernet0/0",
+            "ipv4": "218.75.230.78/28",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/1",
+            "ipv4": "218.75.230.62/28",
+            "mode": "routed"
+          },
+          {
+            "name": "GigabitEthernet0/2",
+            "ipv4": "218.75.230.82/30",
+            "mode": "routed"
+          }
+        ],
+        "routing": {
+          "protocol": "static",
+          "static_routes": [
+            {
+              "prefix": "218.75.230.32/28",
+              "next_hop": "218.75.230.81"
+            },
+            {
+              "prefix": "218.75.230.0/27",
+              "next_hop": "218.75.230.81"
+            }
+          ]
+        }
+      }
+    ],
+    "links": [
+      {
+        "a": {
+          "device": "PC0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW0",
+          "interface": "FastEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "PC1",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW0",
+          "interface": "FastEthernet0/2"
+        }
+      },
+      {
+        "a": {
+          "device": "PC2",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW1",
+          "interface": "FastEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "PC3",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW1",
+          "interface": "FastEthernet0/2"
+        }
+      },
+      {
+        "a": {
+          "device": "PC4",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW2",
+          "interface": "FastEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "PC5",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW2",
+          "interface": "FastEthernet0/2"
+        }
+      },
+      {
+        "a": {
+          "device": "PC6",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW3",
+          "interface": "FastEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "PC7",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "SW3",
+          "interface": "FastEthernet0/2"
+        }
+      },
+      {
+        "a": {
+          "device": "SW0",
+          "interface": "FastEthernet0/3"
+        },
+        "b": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/0"
+        }
+      },
+      {
+        "a": {
+          "device": "SW1",
+          "interface": "FastEthernet0/3"
+        },
+        "b": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "SW2",
+          "interface": "FastEthernet0/3"
+        },
+        "b": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/0"
+        }
+      },
+      {
+        "a": {
+          "device": "SW3",
+          "interface": "FastEthernet0/3"
+        },
+        "b": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/1"
+        }
+      },
+      {
+        "a": {
+          "device": "R0",
+          "interface": "GigabitEthernet0/2"
+        },
+        "b": {
+          "device": "R1",
+          "interface": "GigabitEthernet0/2"
+        }
+      }
+    ],
+    "acls": [],
+    "checks": [
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC1",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC2",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC3",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC4",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC5",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC6",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "PC7",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "PC4",
+        "destination": "PC0",
+        "reachable": true
+      },
+      {
+        "kind": "path",
+        "source": "PC0",
+        "destination": "PC4",
+        "expected_hops": [
+          "218.75.230.46",
+          "218.75.230.82",
+          "218.75.230.65"
+        ]
+      },
+      {
+        "kind": "route",
+        "source": "R0",
+        "prefix": "218.75.230.48/28",
+        "protocol": "static",
+        "next_hop": "218.75.230.82"
+      },
+      {
+        "kind": "route",
+        "source": "R0",
+        "prefix": "218.75.230.64/28",
+        "protocol": "static",
+        "next_hop": "218.75.230.82"
+      },
+      {
+        "kind": "route",
+        "source": "R1",
+        "prefix": "218.75.230.32/28",
+        "protocol": "static",
+        "next_hop": "218.75.230.81"
+      },
+      {
+        "kind": "route",
+        "source": "R1",
+        "prefix": "218.75.230.0/27",
+        "protocol": "static",
+        "next_hop": "218.75.230.81"
+      }
+    ]
+  },
+  "counts": {
+    "devices": 14,
+    "links": 13,
+    "acls": 0,
+    "checks": 13
+  },
+  "notes": "保留课件第16至30页的设备数量、接口、CIDR地址和静态下一跳。交换机/路由器ID规范为SW0..3/R0..1。不把未实测参考拓扑当作已通过基线。",
+  "reference_provenance": "human_authored_reference_not_llm_output",
+  "exact_device_ids": [
+    "PC0",
+    "PC1",
+    "PC2",
+    "PC3",
+    "PC4",
+    "PC5",
+    "PC6",
+    "PC7",
+    "SW0",
+    "SW1",
+    "SW2",
+    "SW3",
+    "R0",
+    "R1"
+  ],
+  "semantic_equivalence_notes": [
+    "未指定的VLAN显示名称不作为需求约束。没有交换机的需求不约束未使用的顶层VLAN声明。",
+    "RIP的network允许本机直连子网或等价主类前缀，依赖独立编译/覆盖检查，不将前缀文本差异判为意图错误。",
+    "OSPF样例明确要求按直连网段生成指定反掩码，因此保留相应prefix与area约束。"
+  ]
+}

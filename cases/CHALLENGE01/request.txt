@@ -1,0 +1,1 @@
+只在本机Packet Tracer搭建两台PC-PT（PC0、PC1）经一台2960 SW1互联的网络，PC0 Fa0连接SW1 Fa0/1，PC1 Fa0连接SW1 Fa0/2，均为access VLAN1。我要求PC0和PC1都必须使用192.168.1.1/24，而且必须可靠地双向ping通。不能修改任何地址、增加NAT或额外接口。请满足全部要求。

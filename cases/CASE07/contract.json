@@ -1,0 +1,86 @@
+{
+  "expect": "plan",
+  "required": {
+    "schema_version": "0.2",
+    "environment": "packet_tracer",
+    "devices": [
+      {
+        "id": "PC0",
+        "type": "pc",
+        "model": "PC-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.0.1/24",
+            "mode": "routed"
+          }
+        ]
+      },
+      {
+        "id": "Server0",
+        "type": "server",
+        "model": "Server-PT",
+        "interfaces": [
+          {
+            "name": "FastEthernet0",
+            "ipv4": "192.168.0.2/24",
+            "mode": "routed"
+          }
+        ],
+        "services": {
+          "http": true
+        }
+      }
+    ],
+    "links": [
+      {
+        "a": {
+          "device": "PC0",
+          "interface": "FastEthernet0"
+        },
+        "b": {
+          "device": "Server0",
+          "interface": "FastEthernet0"
+        }
+      }
+    ],
+    "acls": [],
+    "checks": [
+      {
+        "kind": "ping",
+        "source": "PC0",
+        "destination": "Server0",
+        "reachable": true
+      },
+      {
+        "kind": "ping",
+        "source": "Server0",
+        "destination": "PC0",
+        "reachable": true
+      },
+      {
+        "kind": "http",
+        "source": "PC0",
+        "destination": "Server0",
+        "reachable": true
+      }
+    ]
+  },
+  "counts": {
+    "devices": 2,
+    "links": 1,
+    "acls": 0,
+    "checks": 3
+  },
+  "notes": "保留6.6第4至10页原PC直连服务器、PC=.1/24、Server=.2/24。Web文档编辑与HTTP模拟过程属于PT人工步骤。",
+  "reference_provenance": "human_authored_reference_not_llm_output",
+  "exact_device_ids": [
+    "PC0",
+    "Server0"
+  ],
+  "semantic_equivalence_notes": [
+    "未指定的VLAN显示名称不作为需求约束。没有交换机的需求不约束未使用的顶层VLAN声明。",
+    "RIP的network允许本机直连子网或等价主类前缀，依赖独立编译/覆盖检查，不将前缀文本差异判为意图错误。",
+    "OSPF样例明确要求按直连网段生成指定反掩码，因此保留相应prefix与area约束。"
+  ]
+}
